@@ -18,14 +18,17 @@
   font-weight: 300;
 }
 
+div.has-dark-background h2 {
+  color: #eee !important; // someone better at design than me should fix this.
+}
 
 div.has-dark-background {
-  color: #fff !important;
+  color: #eee !important; // someone better at design than me should fix this.
 }
 
 section.has-dark-background > h2 {
   font-weight: 300 !important;
-  color: #fff !important;
+  color: #eee !important; // someone better at design than me should fix this.
 }
 
 h2 {

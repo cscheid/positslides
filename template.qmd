@@ -13,6 +13,18 @@ format:
       - positslides
 ---
 
+## In this talk {.toc-dark}
+
+- Some stuff
+- Some more stuff
+  - And yet more!
+
+## In this talk {.toc-light}
+
+- Some stuff
+- Some more stuff
+  - And yet more!
+
 ## Dark BG {.30-70-dark}
 
 - Bullet 1

@@ -70,7 +70,15 @@ for i, v in ipairs({
         return result
      end, blank_column },
     },
-}) do
+    { image = "toc-dark",
+      dark = true,
+      widths = { "100%" },
+      columns = { content_column },
+    },
+    { image = "toc-light",
+      widths = { "100%" },
+      columns = { content_column },
+    }})     do
     slide_styles[v.image] = (function(v)
         setmetatable(v.columns, getmetatable(pandoc.List({})))
         return function(content)
