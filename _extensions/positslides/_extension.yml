@@ -6,4 +6,6 @@ contributes:
   formats:
     revealjs:
       theme: [custom.scss]
+  filters:
+    - positslides.lua
 
