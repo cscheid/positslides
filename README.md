@@ -3,7 +3,7 @@
 ## Installing
 
 ```bash
-quarto use template jthomasmock/positslides
+quarto use template cscheid/positslides
 ```
 
 ## Using
