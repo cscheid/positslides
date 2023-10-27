@@ -32,6 +32,28 @@ function blank_column(_content)
     return { pandoc.RawBlock("html", "&nbsp;") }
 end
 
+function header_column_narrow_light(c)
+    local result = pandoc.List({})
+    local title = pandoc.utils.stringify(c[1].content)
+    result:insert(pandoc.RawBlock("html", "<h2 style='color: #F0F0F0 !important;'>" .. title .. "</h2>"))
+    return result
+end
+
+function header_column_narrow_dark(c)
+    local result = pandoc.List({})
+    local title = pandoc.utils.stringify(c[1].content)
+    result:insert(pandoc.RawBlock("html", "<h2 style='color: #F0F0F0;'>" .. title .. "</h2>"))
+    return result
+end
+
+function content_column_wide(c)
+    local result = pandoc.List({})
+    local title = pandoc.utils.stringify(c[1].content)
+    result:extend(c)
+    result:remove(1)
+    return result
+end
+
 function content_column(c)
     local result = pandoc.List({})
     local title = pandoc.utils.stringify(c[1].content)
@@ -41,27 +63,37 @@ function content_column(c)
     return result
 end
 
+function bracket_content(c)
+    local result = pandoc.List({})
+    local title = pandoc.utils.stringify(c[1].content)
+    result:insert(pandoc.RawBlock("html", "<h2 style='margin-left:50px; margin-top:5px;'>" .. title .. "</h2>"))
+    result:extend(c)
+    result:remove(2)
+    return result
+end
+
 local blank = pandoc.RawBlock("html", "&nbsp;")
 for i, v in ipairs({
     { image = "30-70-dark",
+      dark = false,
       widths = { "35%", "65%" },
-      columns = { blank_column, content_column },
+      columns = { header_column_narrow_light, content_column_wide },
     },
     { image = "30-70-light",
       widths = { "35%", "65%" },
-      columns = { blank_column, content_column },
+      columns = { header_column_narrow_dark, content_column_wide },
     },
-    { image = "dark-section",
+    { image = "content-dark",
       dark = true,
       widths = { "35%", "65%" },
       columns = { blank_column, content_column },
     },
-    { image = "dark-section-2",
+    { image = "content-rhs",
       dark = true,
       widths = { "55%", "45%" },
       columns = { blank_column, content_column },
     },
-    { image = "dark-section-3",
+    { image = "content-lhs",
       dark = true,
       widths = { "45%", "55%" },
       columns = { function (content) 
@@ -70,15 +102,16 @@ for i, v in ipairs({
         return result
      end, blank_column },
     },
-    { image = "toc-dark",
+    { image = "full-brackets-dark",
       dark = true,
       widths = { "100%" },
-      columns = { content_column },
+      columns = { bracket_content },
     },
-    { image = "toc-light",
+    { image = "full-brackets-light",
       widths = { "100%" },
-      columns = { content_column },
-    }})     do
+      columns = { bracket_content },
+    }
+})     do
     slide_styles[v.image] = (function(v)
         setmetatable(v.columns, getmetatable(pandoc.List({})))
         return function(content)
@@ -92,7 +125,7 @@ for i, v in ipairs({
     end)(v)
 end
 
--- TODO dark-section needs light text
+
 
 function mysplit (inputstr, pattern)
     if sep == nil then
